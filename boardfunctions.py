@@ -45,13 +45,21 @@ def create_board():
         board.append([])
         for colum in range(9):
             board[row].append(0)
+
     row_min = 0
     row_max = 2
     col_min = 0
     col_max = 2
-    for slot in range(3):
-        for round in range(2):
-            board[randint(row_min, row_max)][randint(col_min, col_max)] = randint(1, 9)
-        row_min += 3
-        row_max += 3
+
+    for round3 in range(3):
+        for round2 in range(3):
+            for round in range(4):
+                board[randint(row_min, row_max)][randint(col_min, col_max)] = randint(1, 9)
+            row_min += 3
+            row_max += 3
+        col_max += 3
+        col_min += 3
+        row_min = 0
+        row_max = 0
+
     return board
