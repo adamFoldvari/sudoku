@@ -3,23 +3,20 @@ from boardfunctions import *
 
 def check_insert(board, x, y, z):
     if 0 < board[x - 1].count(z):
-        print_board(board)
-        print("This number is already in this row!")
+        return board, 1
     elif 0 < column(board, y - 1).count(z):
-        print_board(board)
-        print("This number is already in this column!")
+        return board, 2
     elif 0 < box(board, x - 1, y - 1).count(z):
-        print_board(board)
-        print("This number is already in this 3*3 box!")
+        return board, 3
     elif board[x - 1][y - 1] == 0:
         board[x - 1][y - 1] = z
-        print_board(board)
+        return board, 0
     else:
-        print_board(board)
-        print("You cannot change this number.")
+        return board, 4
 
 
 def user_insert(board):
+
     try:
         list1 = list(input("""Give me rows, columns, number to write separated by one character
                             (e.g.:3 5 7 or 3,5,7):"""))
@@ -27,13 +24,17 @@ def user_insert(board):
             x = int(list1[0])
             y = int(list1[2])
             z = int(list1[4])
-            check_insert(board, x, y, z)
+            board, message = check_insert(board, x, y, z)
+            return board, message
         else:
-            print("Invalid format!")
+            message = 5
+            return board, message
     except ValueError:
-        print("Invalid format!")
+        message = 5
+        return board, message
     except IndexError:
-        print("Invalid format!")
+        message = 5
+        return board, message
 
 
 def check_win(board, u):

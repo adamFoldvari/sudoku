@@ -1,7 +1,7 @@
 from random import randint
 
 
-def print_board(board):
+def print_board(board, message=0):
     print ("\033c")
     print("-" * 37)
     for i, row in enumerate(board):
@@ -12,6 +12,16 @@ def print_board(board):
             print("|" + "---+" * 8 + "---|")
         else:
             print("|" + "   +" * 8 + "   |")
+    if message == 1:
+        print("This number is already in this row!")
+    if message == 2:
+        print("This number is already in this column!")
+    if message == 3:
+        print("This number is already in this 3*3 box!")
+    if message == 4:
+        print("You cannot change this number.")
+    if message == 5:
+        print("Invalid format!")
 
 
 def column(matrix, k):

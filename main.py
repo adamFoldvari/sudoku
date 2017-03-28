@@ -9,7 +9,8 @@ def main():
     print_board(board)
     while True:
         u = 0
-        user_insert(board)
+        board, message = user_insert(board)
+        print_board(board, message)
         result = check_win(board, u)
         if result == 0:
             break
