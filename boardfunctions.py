@@ -1,4 +1,6 @@
-from random import randint
+import random
+from insertfunc import *
+from boxcol import *
 
 
 def print_board(board, message=0):
@@ -24,52 +26,25 @@ def print_board(board, message=0):
         print("Invalid format!")
 
 
-def column(matrix, k):
-    return [row[k]for row in matrix]
-
-
-def box(matrix, a, b):
-    if a < 3 and b < 3:
-        return [matrix[j][i]for i in range(3) for j in range(3)]
-    if a < 3 and (b < 6 and b > 2):
-        return [matrix[j][i]for i in range(3, 6) for j in range(3)]
-    if a < 3 and (b < 9 and b > 5):
-        return [matrix[j][i]for i in range(6, 9) for j in range(3)]
-    if (a < 6 and a > 2) and b < 3:
-        return [matrix[j][i]for i in range(3) for j in range(3, 6)]
-    if (a < 6 and a > 2) and (b < 6 and b > 2):
-        return [matrix[j][i]for i in range(3, 6) for j in range(3, 6)]
-    if (a < 6 and a > 2) and (b < 9 and b > 5):
-        return [matrix[j][i]for i in range(6, 9) for j in range(3, 6)]
-    if (a < 9 and a > 5) and b < 3:
-        return [matrix[j][i]for i in range(3) for j in range(6, 9)]
-    if (a < 9 and a > 5) and (b < 6 and b > 2):
-        return [matrix[j][i]for i in range(3, 6) for j in range(6, 9)]
-    if (a < 9 and a > 5) and (b < 9 and b > 5):
-        return [matrix[j][i]for i in range(6, 9) for j in range(6, 9)]
-
-
 def create_board():
-    board = []
-    for row in range(9):
-        board.append([])
-        for colum in range(9):
-            board[row].append(0)
+    while True:
+        try:
+            board = [[0] * 9 for i in range(9)]
+            rows = [set(range(1, 10))for i in range(9)]
+            columns = [set(range(1, 10)) for i in range(9)]
+            squares = [set(range(1, 10)) for i in range(9)]
+            for i in range(9):
+                for j in range(9):
+                    choices = rows[i].intersection(columns[j]).intersection(squares[int((i / 3) * 3 + j / 3)])
+                    choice = random.choice(list(choices))
 
-    row_min = 0
-    row_max = 2
-    col_min = 0
-    col_max = 2
+                    board[i][j] = choice
 
-    for round3 in range(3):
-        for round2 in range(3):
-            for round in range(4):
-                board[randint(row_min, row_max)][randint(col_min, col_max)] = randint(1, 9)
-            row_min += 3
-            row_max += 3
-        col_max += 3
-        col_min += 3
-        row_min = 0
-        row_max = 0
+                    rows[i].discard(choice)
+                    columns[j].discard(choice)
+                    squares[int((i / 3) * 3 + j / 3)].discard(choice)
 
-    return board
+            return board
+
+        except IndexError:
+            pass
