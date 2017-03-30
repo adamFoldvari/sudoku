@@ -1,10 +1,10 @@
 def column(matrix, col):
-    # returns a list with the element from the given colum
+    # returns a list with the elements from the given colum
     return [row[col]for row in matrix]
 
 
 def box(matrix, row, col):
-    # returns a list with the element from the given box
+    # returns a list with the elements from the given box
     row = int(row / 3)
     col = int(col / 3)
     box = []
