@@ -1,13 +1,12 @@
-from boardfunctions import *
-from boxcol import *
+import boardfunctions
 
 
-def check_insert1(board, x, y, z):
-    if 0 < board[x - 1].count(z):
+def check_insert(board, x, y, z):
+    if boardfunctions.used_in_row(board, x - 1, z):
         return board, 1
-    elif 0 < column(board, y - 1).count(z):
+    elif boardfunctions.used_in_col(board, y - 1, z):
         return board, 2
-    elif 0 < box(board, x - 1, y - 1).count(z):
+    elif boardfunctions.used_in_box(board, x - 1, y - 1, z):
         return board, 3
     elif board[x - 1][y - 1] == 0:
         board[x - 1][y - 1] = z
@@ -25,7 +24,7 @@ def user_insert(board):
             x = int(list1[0])
             y = int(list1[2])
             z = int(list1[4])
-            board, message = check_insert1(board, x, y, z)
+            board, message = check_insert(board, x, y, z)
             return board, message
         else:
             message = 5

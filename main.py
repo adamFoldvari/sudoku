@@ -2,7 +2,6 @@
 from menu import *
 from boardfunctions import *
 from insertfunc import *
-from boxcol import *
 
 
 def main():

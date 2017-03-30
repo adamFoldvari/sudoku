@@ -1,6 +1,5 @@
 from random import randint
 from insertfunc import *
-from boxcol import *
 
 
 def print_board(board, message=0):
