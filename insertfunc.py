@@ -1,8 +1,28 @@
-from boardfunctions import *
 from boxcol import *
 
 
-def check_insert1(board, row, col, num):
+def user_insert(board):
+    try:
+        list1 = list(input("""Give me rows, columns, number to write separated by one character
+                            (e.g.:3 5 7 or 3,5,7):"""))
+        if len(list1) < 6:
+            row = int(list1[0])
+            col = int(list1[2])
+            num = int(list1[4])
+            board, message = check_insert(board, row, col, num)
+            return board, message
+        else:
+            message = 5
+            return board, message
+    except ValueError:
+        message = 5
+        return board, message
+    except IndexError:
+        message = 5
+        return board, message
+
+
+def check_insert(board, row, col, num):
     if 0 < board[row - 1].count(num):
         return board, 1
     elif 0 < column(board, col - 1).count(num):
@@ -14,28 +34,6 @@ def check_insert1(board, row, col, num):
         return board, 0
     else:
         return board, 4
-
-
-def user_insert(board):
-
-    try:
-        list1 = list(input("""Give me rows, columns, number to write separated by one character
-                            (e.g.:3 5 7 or 3,5,7):"""))
-        if len(list1) < 6:
-            row = int(list1[0])
-            col = int(list1[2])
-            num = int(list1[4])
-            board, message = check_insert1(board, row, col, num)
-            return board, message
-        else:
-            message = 5
-            return board, message
-    except ValueError:
-        message = 5
-        return board, message
-    except IndexError:
-        message = 5
-        return board, message
 
 
 def check_win(board, win):

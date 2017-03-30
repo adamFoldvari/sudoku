@@ -1,6 +1,4 @@
 from random import randint
-from insertfunc import *
-from boxcol import *
 
 
 def print_board(board, message=0):
@@ -59,7 +57,8 @@ def used_in_box(arr, row, col, num):
 
 
 def check_location_is_safe(arr, row, col, num):
-    return not used_in_row(arr, row, num) and not used_in_col(arr, col, num) and not used_in_box(arr, row - row % 3, col - col % 3, num)
+    return not used_in_row(arr, row, num) and not used_in_col(arr, col, num) and not used_in_box(
+        arr, row - row % 3, col - col % 3, num)
 
 
 def solve_sudoku(arr):
@@ -84,7 +83,7 @@ def solve_sudoku(arr):
 
 
 def create_board(diffic):
-    board = [[0] * 9 for i in range(9)]
+    board = [[0] * 9 for lists in range(9)]
 
     board[0][1] = randint(1, 9)
     board[1][5] = randint(1, 9)
