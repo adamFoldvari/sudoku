@@ -1,9 +1,10 @@
 from random import randint
 from insertfunc import *
+from boxcol import *
 
 
 def print_board(board, message=0):
-    print ("\033c")
+    print("\033c")
     print("-" * 37)
     for i, row in enumerate(board):
         print(("|" + " {}   {}   {} |" * 3).format(*[x if x != 0 else " " for x in row]))
@@ -25,34 +26,34 @@ def print_board(board, message=0):
         print("Invalid format!")
 
 
-def find_empty_location(arr, l):
+def find_empty_location(arr, location):
     for row in range(9):
         for col in range(9):
             if(arr[row][col] == 0):
-                l[0] = row
-                l[1] = col
+                location[0] = row
+                location[1] = col
                 return True
     return False
 
 
 def used_in_row(arr, row, num):
-    for i in range(9):
-        if(arr[row][i] == num):
+    for index in range(9):
+        if(arr[row][index] == num):
             return True
     return False
 
 
 def used_in_col(arr, col, num):
-    for i in range(9):
-        if(arr[i][col] == num):
+    for index in range(9):
+        if(arr[index][col] == num):
             return True
     return False
 
 
 def used_in_box(arr, row, col, num):
-    for i in range(3):
-        for j in range(3):
-            if(arr[i + row][j + col] == num):
+    for index1 in range(3):
+        for index2 in range(3):
+            if(arr[index1 + row][index2 + col] == num):
                 return True
     return False
 
@@ -62,13 +63,13 @@ def check_location_is_safe(arr, row, col, num):
 
 
 def solve_sudoku(arr):
-    l = [0, 0]
+    location = [0, 0]
 
-    if(not find_empty_location(arr, l)):
+    if(not find_empty_location(arr, location)):
         return True
 
-    row = l[0]
-    col = l[1]
+    row = location[0]
+    col = location[1]
 
     for num in range(1, 10):
         if(check_location_is_safe(arr, row, col, num)):

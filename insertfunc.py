@@ -1,15 +1,16 @@
-import boardfunctions
+from boardfunctions import *
+from boxcol import *
 
 
-def check_insert(board, x, y, z):
-    if boardfunctions.used_in_row(board, x - 1, z):
+def check_insert1(board, row, col, num):
+    if 0 < board[row - 1].count(num):
         return board, 1
-    elif boardfunctions.used_in_col(board, y - 1, z):
+    elif 0 < column(board, col - 1).count(num):
         return board, 2
-    elif boardfunctions.used_in_box(board, x - 1, y - 1, z):
+    elif 0 < box(board, row - 1, col - 1).count(num):
         return board, 3
-    elif board[x - 1][y - 1] == 0:
-        board[x - 1][y - 1] = z
+    elif board[row - 1][col - 1] == 0:
+        board[row - 1][col - 1] = num
         return board, 0
     else:
         return board, 4
@@ -21,10 +22,10 @@ def user_insert(board):
         list1 = list(input("""Give me rows, columns, number to write separated by one character
                             (e.g.:3 5 7 or 3,5,7):"""))
         if len(list1) < 6:
-            x = int(list1[0])
-            y = int(list1[2])
-            z = int(list1[4])
-            board, message = check_insert(board, x, y, z)
+            row = int(list1[0])
+            col = int(list1[2])
+            num = int(list1[4])
+            board, message = check_insert1(board, row, col, num)
             return board, message
         else:
             message = 5
@@ -37,10 +38,10 @@ def user_insert(board):
         return board, message
 
 
-def check_win(board, u):
+def check_win(board, win):
     for row in board:
         if row.count(0):
-            u += 1
-    if u == 0:
+            win += 1
+    if win == 0:
         print("Coungratulation, you won!!!")
-        return u
+        return win
