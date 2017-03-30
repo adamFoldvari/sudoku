@@ -1,4 +1,5 @@
 def menu():
+    # ask the for a difficulty level, if a good input is given, return an integer stored in a variable
     print("\033c")
     print('       RANDOM SUDOKU GAME V2.© 2017 \n Developers: Ádám Földvári and Dávid Tanács \nChoose difficulty:')
     lvl_choice = 0

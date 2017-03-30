@@ -2,6 +2,7 @@ from random import randint
 
 
 def print_board(board, message=0):
+    # displays the board in a nice form
     print("\033c")
     print("-" * 37)
     for i, row in enumerate(board):
@@ -25,6 +26,7 @@ def print_board(board, message=0):
 
 
 def find_empty_location(arr, location):
+    # finds an empyt location in the sudoku matrix, and stores its coordinates in a list
     for row in range(9):
         for col in range(9):
             if(arr[row][col] == 0):
@@ -35,6 +37,7 @@ def find_empty_location(arr, location):
 
 
 def used_in_row(arr, row, num):
+    # checks if a number is exist in a row
     for index in range(9):
         if(arr[row][index] == num):
             return True
@@ -42,6 +45,7 @@ def used_in_row(arr, row, num):
 
 
 def used_in_col(arr, col, num):
+    # checks if a number is exist in a colum
     for index in range(9):
         if(arr[index][col] == num):
             return True
@@ -49,6 +53,7 @@ def used_in_col(arr, col, num):
 
 
 def used_in_box(arr, row, col, num):
+    # checks if a number is exist in a 3*3 box
     for index1 in range(3):
         for index2 in range(3):
             if(arr[index1 + row][index2 + col] == num):
@@ -57,11 +62,13 @@ def used_in_box(arr, row, col, num):
 
 
 def check_location_is_safe(arr, row, col, num):
+    # checks if a number is exist in the row, col, or box
     return not used_in_row(arr, row, num) and not used_in_col(arr, col, num) and not used_in_box(
         arr, row - row % 3, col - col % 3, num)
 
 
 def solve_sudoku(arr):
+    # solves the given sudoku matrix with a recursive backtracking algorithm
     location = [0, 0]
 
     if(not find_empty_location(arr, location)):
@@ -83,8 +90,11 @@ def solve_sudoku(arr):
 
 
 def create_board(diffic):
-    board = [[0] * 9 for lists in range(9)]
+    # this function will create a random valid suoku board
 
+    # creatse an empty 2d list as sudoku board
+    board = [[0] * 9 for lists in range(9)]
+    # we will some random numbers, for predefined places
     board[0][1] = randint(1, 9)
     board[1][5] = randint(1, 9)
     board[2][6] = randint(1, 9)
@@ -95,8 +105,11 @@ def create_board(diffic):
     board[7][4] = randint(1, 9)
     board[8][8] = randint(1, 9)
 
+    # run the sudoku solver, to make a valid sudoku game for the given table
     solve_sudoku(board)
 
+    # we delete some numbers, from  each box in the filled sudoku grid
+    # number of deleted numbers is depending by the difficulty choice
     row_min = 0
     row_max = 2
     col_min = 0

@@ -2,6 +2,7 @@ from boxcol import *
 
 
 def user_insert(board):
+    # ask for a user input and checks if it meets the given requirement
     try:
         list1 = list(input("""Give me rows, columns, number to write separated by one character
                             (e.g.:3 5 7 or 3,5,7):"""))
@@ -23,6 +24,7 @@ def user_insert(board):
 
 
 def check_insert(board, row, col, num):
+    # cheks if the valid user input matches the sudoku rules
     if 0 < board[row - 1].count(num):
         return board, 1
     elif 0 < column(board, col - 1).count(num):
@@ -37,6 +39,8 @@ def check_insert(board, row, col, num):
 
 
 def check_win(board, win):
+    # after every input, we run this, to check if the table is filled already
+    # becouse we let the user only good solutions to fill, when the table is filled, you won the game
     for row in board:
         if row.count(0):
             win += 1
