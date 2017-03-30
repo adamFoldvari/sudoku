@@ -1,4 +1,4 @@
-import random
+from random import randint
 from insertfunc import *
 from boxcol import *
 
@@ -26,25 +26,74 @@ def print_board(board, message=0):
         print("Invalid format!")
 
 
+def find_empty_location(arr, l):
+    for row in range(9):
+        for col in range(9):
+            if(arr[row][col] == 0):
+                l[0] = row
+                l[1] = col
+                return True
+    return False
+
+
+def used_in_row(arr, row, num):
+    for i in range(9):
+        if(arr[row][i] == num):
+            return True
+    return False
+
+
+def used_in_col(arr, col, num):
+    for i in range(9):
+        if(arr[i][col] == num):
+            return True
+    return False
+
+
+def used_in_box(arr, row, col, num):
+    for i in range(3):
+        for j in range(3):
+            if(arr[i + row][j + col] == num):
+                return True
+    return False
+
+
+def check_location_is_safe(arr, row, col, num):
+    return not used_in_row(arr, row, num) and not used_in_col(arr, col, num) and not used_in_box(arr, row - row % 3, col - col % 3, num)
+
+
+def solve_sudoku(arr):
+    l = [0, 0]
+
+    if(not find_empty_location(arr, l)):
+        return True
+
+    row = l[0]
+    col = l[1]
+
+    for num in range(1, 10):
+        if(check_location_is_safe(arr, row, col, num)):
+            arr[row][col] = num
+
+            if(solve_sudoku(arr)):
+                return True
+
+            arr[row][col] = 0
+
+    return False
+
+
 def create_board():
-    while True:
-        try:
-            board = [[0] * 9 for i in range(9)]
-            rows = [set(range(1, 10))for i in range(9)]
-            columns = [set(range(1, 10)) for i in range(9)]
-            squares = [set(range(1, 10)) for i in range(9)]
-            for i in range(9):
-                for j in range(9):
-                    choices = rows[i].intersection(columns[j]).intersection(squares[int((i / 3) * 3 + j / 3)])
-                    choice = random.choice(list(choices))
+    board = [[0] * 9 for i in range(9)]
+    board[0][1] = randint(1, 9)
+    board[1][5] = randint(1, 9)
+    board[2][6] = randint(1, 9)
+    board[3][0] = randint(1, 9)
+    board[4][3] = randint(1, 9)
+    board[5][7] = randint(1, 9)
+    board[6][2] = randint(1, 9)
+    board[7][4] = randint(1, 9)
+    board[8][8] = randint(1, 9)
 
-                    board[i][j] = choice
-
-                    rows[i].discard(choice)
-                    columns[j].discard(choice)
-                    squares[int((i / 3) * 3 + j / 3)].discard(choice)
-
-            return board
-
-        except IndexError:
-            pass
+    solve_sudoku(board)
+    return board
