@@ -83,7 +83,7 @@ def solve_sudoku(arr):
     return False
 
 
-def create_board():
+def create_board(diffic):
     board = [[0] * 9 for i in range(9)]
 
     board[0][1] = randint(1, 9)
@@ -104,7 +104,7 @@ def create_board():
     col_max = 2
     for round3 in range(3):
         for round2 in range(3):
-            for round in range(3):
+            for round in range(diffic):
                 board[randint(row_min, row_max)][randint(col_min, col_max)] = 0
             row_min += 3
             row_max += 3

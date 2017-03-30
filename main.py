@@ -1,12 +1,13 @@
 
-
+from menu import *
 from boardfunctions import *
 from insertfunc import *
 from boxcol import *
 
 
 def main():
-    board = create_board()
+    difficulty = menu()
+    board = create_board(difficulty)
     print_board(board)
     while True:
         u = 0
